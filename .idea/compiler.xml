@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="eureka" />
         <module name="gateway" />
+        <module name="admin-master" />
       </profile>
     </annotationProcessing>
   </component>

@@ -32,6 +32,7 @@ public class GatewayApplication {
 
     /**
      * 配置跨域
+     *
      * @return
      */
     @Bean

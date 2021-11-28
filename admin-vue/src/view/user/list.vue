@@ -11,7 +11,11 @@
           <el-table-column prop="lastLogin" label="上次登录时间" align="center" />
           <el-table-column fixed="right" align="center" label="操作" width="200">
             <template slot-scope="scope">
-              <el-button size="middle" @click="reset(scope.row.email)"><i class="el-icon-setting"></i>重置密码</el-button>
+              <el-tooltip class="item" effect="dark" :content="'将密码重置为：' + scope.row.email" placement="bottom">
+                <el-popconfirm title="确定重置该用户的密码吗？" @confirm="reset(scope.row.email)">
+                  <el-button size="middle" slot="reference"><i class="el-icon-setting"></i>重置密码</el-button>
+                </el-popconfirm>
+              </el-tooltip>
             </template>
           </el-table-column>
         </el-table>

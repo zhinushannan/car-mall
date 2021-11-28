@@ -132,34 +132,16 @@ export default {
           ]
         },
         {
-          "title": "预约管理",
+          "title": "汽车管理",
           "icon": "el-icon-user-solid",
           "href": "#",
           "id": "2",
           children: [
             {
-              "title": "时间安排",
+              "title": "汽车列表",
               "icon": "",
               "href": "/#/appointment/add",
               "id": "2-1"
-            },
-            {
-              "title": "审核预约",
-              "icon": "",
-              "href": "/#/appointment/verify",
-              "id": "2-2"
-            },
-            {
-              "title": "安排记录",
-              "icon": "",
-              "href": "/#/appointment/timeHistory",
-              "id": "2-3"
-            },
-            {
-              "title": "预约记录",
-              "icon": "",
-              "href": "/#/appointment/verifyHistory",
-              "id": "2-4"
             }
           ]
         },

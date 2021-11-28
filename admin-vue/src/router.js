@@ -5,6 +5,8 @@ import Index from "./view/index"
 
 import UserList from "./view/user/list"
 
+import CarList from "./view/car/list"
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -15,8 +17,13 @@ const routes = [
     },
     {
         path: "/user/list",
-        name: "User",
+        name: "UserList",
         component: UserList
+    },
+    {
+        path: "/car/list",
+        name: "CarList",
+        component: CarList
     }
 ]
 

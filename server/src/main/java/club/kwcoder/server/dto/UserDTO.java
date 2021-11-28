@@ -1,6 +1,7 @@
 package club.kwcoder.server.dto;
 
 import club.kwcoder.server.utils.ValidatorUtil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.DigestUtils;
@@ -34,14 +35,17 @@ public class UserDTO implements Serializable {
     /**
      * 用户创建的时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private LocalDateTime createdGmt;
     /**
      * 用户上次修改个人信息的时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private LocalDateTime modifiedGmt;
     /**
      * 用户上次登录的时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private LocalDateTime lastLogin;
 
     public boolean isEmailLegal() {

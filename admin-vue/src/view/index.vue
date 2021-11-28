@@ -124,8 +124,8 @@ export default {
           id: "1",
           children: [
             {
-              "title": "用户管理",
-              "icon": "",
+              "title": "用户列表",
+              "icon": "el-icon-user",
               "href": "/#/user/list",
               "id": "1-1"
             },

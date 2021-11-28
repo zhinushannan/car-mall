@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void list(PageBean<UserDTO> page) {
         PageHelper.startPage(page.getPage(), page.getSize());
+
         List<UserDO> userDOS = userMapper.selectByExample(new UserDOExample());
         PageInfo<UserDO> pageInfo = PageInfo.of(userDOS);
         List<UserDTO> userDTOS = CopyUtil.copyList(userDOS, UserDTO.class);

@@ -19,8 +19,18 @@ public interface UserMapper {
 
     int insertSelective(UserDO record);
 
+    /**
+     * 通过此方法查询的用户信息不显示盐和密码
+     * @param example example
+     * @return 返回用户信息列表
+     */
     List<UserDO> selectByExample(UserDOExample example);
 
+    /**
+     * 通过此方法查询的用户信息显示盐和密码
+     * @param email 用户的email
+     * @return 返回用户信息
+     */
     UserDO selectByPrimaryKey(String email);
 
     int updateByExampleSelective(@Param("record") UserDO record, @Param("example") UserDOExample example);

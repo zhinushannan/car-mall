@@ -78,7 +78,7 @@
         <if test="distinct">
             distinct
         </if>
-        <include refid="Base_Column_List"/>
+        email, created_gmt, modified_gmt, last_login
         from user
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>

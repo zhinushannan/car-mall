@@ -4,6 +4,8 @@ import VueRouter from "vue-router"
 import Index from "./view/index"
 import Main from "./view/main"
 
+import CarDetail from "./view/car_detail"
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -16,9 +18,15 @@ const routes = [
                 path: "main",
                 name: "Main",
                 component: Main
+            },
+            {
+                path: "/carDetail/:id",
+                name: "CarDetail",
+                component: CarDetail
             }
         ]
     },
+
 
 ]
 

@@ -21,6 +21,12 @@ public class CarController {
         return ResultBean.getSuccess("查询成功！", page);
     }
 
+    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    public ResultBean<CarDTO> query(@RequestParam String id) {
+        CarDTO car = carService.query(id);
+        return ResultBean.getSuccess("查询成功！", car);
+    }
+
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResultBean<String> save(@RequestBody CarDTO car) {
         if (car.isLegal()) {

@@ -4,7 +4,6 @@ import club.kwcoder.server.bean.ResultBean;
 import club.kwcoder.server.dto.CarDTO;
 import club.kwcoder.server.service.CarService;
 import org.apache.commons.lang.StringUtils;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +16,7 @@ public class CarController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResultBean<String> save(@RequestBody CarDTO car) {
-        if (!car.isLegal()) {
+        if (car.isLegal()) {
             return ResultBean.getForbid("参数错误！");
         }
         carService.save(car);
@@ -26,7 +25,7 @@ public class CarController {
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public ResultBean<String> update(@RequestBody CarDTO car) {
-        if (!car.isLegal() || null == carService.query(car.getId())) {
+        if (car.isLegal() || null == carService.query(car.getId())) {
             return ResultBean.getForbid("参数错误！");
         }
         carService.save(car);

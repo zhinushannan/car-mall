@@ -23,7 +23,7 @@
       <!-- 分页 -->
       <div class="block" style="margin-top: 20px;">
         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page.page"
-                       :page-sizes="[20, 50, 100]" :page-size="20" layout="total, sizes, prev, pager, next, jumper" :total="page.total">
+                       :page-sizes="[10, 20, 50, 100]" :page-size="page.size" layout="total, sizes, prev, pager, next, jumper" :total="page.total">
         </el-pagination>
       </div>
     </el-card>
@@ -39,7 +39,7 @@ export default {
     return {
       page: {
         page: 1,
-        size: 20
+        size: 10
       }
     }
   },

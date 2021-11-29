@@ -140,7 +140,7 @@ export default {
             {
               "title": "汽车列表",
               "icon": "",
-              "href": "/#/appointment/add",
+              "href": "/#/car/list",
               "id": "2-1"
             }
           ]

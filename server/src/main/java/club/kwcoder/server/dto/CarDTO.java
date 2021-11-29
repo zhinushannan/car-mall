@@ -1,12 +1,12 @@
 package club.kwcoder.server.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 public class CarDTO  implements Serializable {
@@ -28,6 +28,7 @@ public class CarDTO  implements Serializable {
     /**
      * 上牌日期
      */
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private LocalDate registerDate;
 
     /**
@@ -73,22 +74,24 @@ public class CarDTO  implements Serializable {
     /**
      * 汽车的创建时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private LocalDateTime createdGmt;
 
     /**
      * 汽车的修改时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private LocalDateTime modifiedGmt;
 
     public boolean isLegal() {
-        return StringUtils.isNotBlank(this.brand) &&
-                StringUtils.isNotBlank(this.model) &&
-                null != this.registerDate && this.registerDate.isBefore(LocalDate.now()) &&
-                this.mileage > 0 &&
-                this.displacement > 0 &&
-                StringUtils.isNotBlank(this.gearbox) && (StringUtils.equals(this.gearbox, "手动") || StringUtils.equals(this.gearbox, "自动") || StringUtils.equals(this.gearbox, "手自一体")) &&
-                this.price > 0 &&
-                this.showPrice > 0 && this.price <= this.showPrice;
+        return !StringUtils.isNotBlank(this.brand) ||
+                !StringUtils.isNotBlank(this.model) ||
+                null == this.registerDate || !this.registerDate.isBefore(LocalDate.now()) ||
+                this.mileage <= 0 ||
+                this.displacement <= 0 ||
+                !StringUtils.isNotBlank(this.gearbox) || (!StringUtils.equals(this.gearbox, "手动") && !StringUtils.equals(this.gearbox, "自动") && !StringUtils.equals(this.gearbox, "手自一体")) ||
+                this.price <= 0 ||
+                this.showPrice <= 0 || this.price > this.showPrice;
     }
 
 

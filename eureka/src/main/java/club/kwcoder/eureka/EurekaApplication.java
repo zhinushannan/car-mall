@@ -1,4 +1,4 @@
-package kwcoder;
+package club.kwcoder.eureka;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

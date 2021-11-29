@@ -1,5 +1,6 @@
 package club.kwcoder.user.controller;
 
+import club.kwcoder.server.bean.PageBean;
 import club.kwcoder.server.bean.ResultBean;
 import club.kwcoder.server.dto.CarDTO;
 import club.kwcoder.server.service.CarService;
@@ -13,6 +14,12 @@ public class CarController {
 
     @Autowired
     private CarService carService;
+
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public ResultBean<PageBean<CarDTO>> list(@RequestBody PageBean<CarDTO> page) {
+        carService.list(page);
+        return ResultBean.getSuccess("查询成功！", page);
+    }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResultBean<String> save(@RequestBody CarDTO car) {

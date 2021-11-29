@@ -1,9 +1,24 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
 
+import Index from "./view/index"
+import Main from "./view/main"
+
 Vue.use(VueRouter)
 
 const routes = [
+    {
+        path: "/",
+        name: "Index",
+        component: Index,
+        children: [
+            {
+                path: "main",
+                name: "Main",
+                component: Main
+            }
+        ]
+    },
 
 ]
 

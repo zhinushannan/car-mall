@@ -1,5 +1,7 @@
 package club.kwcoder.server.dto;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.apache.commons.lang.StringUtils;
@@ -7,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class CarDTO  implements Serializable {
@@ -62,6 +65,11 @@ public class CarDTO  implements Serializable {
     private String imgList;
 
     /**
+     * 图片的 json 格式
+     */
+    private List<ImageDTO> img;
+
+    /**
      * 车主的邮箱
      */
     private String userEmail;
@@ -94,6 +102,11 @@ public class CarDTO  implements Serializable {
                 this.showPrice <= 0 || this.price > this.showPrice;
     }
 
+
+    public void setImgList(String imgList) {
+        this.imgList = imgList;
+        this.img = JSONArray.parseArray(this.imgList, ImageDTO.class);
+    }
 
     private static final long serialVersionUID = 1L;
 }

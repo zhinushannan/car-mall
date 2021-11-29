@@ -5,6 +5,9 @@ import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+import layer from "vue-layer";
+import "vue-layer/lib/vue-layer.css";
+
 import $ from 'jquery'
 
 import axios from "axios";

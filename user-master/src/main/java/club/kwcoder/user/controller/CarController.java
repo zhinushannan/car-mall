@@ -3,10 +3,15 @@ package club.kwcoder.user.controller;
 import club.kwcoder.server.bean.PageBean;
 import club.kwcoder.server.bean.ResultBean;
 import club.kwcoder.server.dto.CarDTO;
+import club.kwcoder.server.service.BrowseService;
 import club.kwcoder.server.service.CarService;
+import club.kwcoder.server.service.UserLoginService;
+import club.kwcoder.server.utils.RedisUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping(value = "/car")
@@ -15,15 +20,50 @@ public class CarController {
     @Autowired
     private CarService carService;
 
+    @Autowired
+    private BrowseService browseService;
+
+    @Autowired
+    private UserLoginService userLoginService;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public ResultBean<PageBean<CarDTO>> list(@RequestBody PageBean<CarDTO> page) {
-        carService.list(page);
+    public ResultBean<PageBean<CarDTO>> list(@RequestBody PageBean<CarDTO> page,
+                                             @CookieValue(name = "email", value = "", required = false) String email,
+                                             @CookieValue(name = "token", value = "", required = false) String token,
+                                             HttpServletResponse response) {
+        if (StringUtils.isNotBlank(email) && StringUtils.equals(token, redisUtil.getString("email:" + email))) {
+            carService.list(page, email);
+        } else {
+            userLoginService.logout(email, response);
+            carService.list(page);
+        }
         return ResultBean.getSuccess("查询成功！", page);
     }
 
+    @RequestMapping(value = "/history", method = RequestMethod.POST)
+    public ResultBean<PageBean<CarDTO>> history(@RequestBody PageBean<CarDTO> page,
+                                                @CookieValue(name = "email", value = "", required = false) String email,
+                                                @CookieValue(name = "token", value = "", required = false) String token,
+                                                HttpServletResponse response) {
+        if (StringUtils.equals(token, redisUtil.getString("email:" + email))) {
+            carService.history(page, email);
+            return ResultBean.getSuccess("查询成功！", page);
+        } else {
+            userLoginService.logout(email, response);
+            return ResultBean.getForbid("您尚未登录！");
+        }
+    }
+
     @RequestMapping(value = "/query", method = RequestMethod.GET)
-    public ResultBean<CarDTO> query(@RequestParam String id) {
+    public ResultBean<CarDTO> query(@RequestParam String id,
+                                    @CookieValue(name = "email", value = "", required = false) String email) {
         CarDTO car = carService.query(id);
+        if (StringUtils.isNotBlank(email)) {
+            browseService.browse(id, email);
+        }
         return ResultBean.getSuccess("查询成功！", car);
     }
 

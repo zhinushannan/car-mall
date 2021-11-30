@@ -20,16 +20,24 @@
               <el-link>个人中心<i class="el-icon-arrow-down el-icon--right"></i></el-link>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <router-link to="/selling"><el-dropdown-item icon="el-icon-plus">我的汽车</el-dropdown-item></router-link>
-              <router-link to="/appointment"><el-dropdown-item icon="el-icon-plus">我的预约</el-dropdown-item></router-link>
-              <router-link to="/history"><el-dropdown-item icon="el-icon-circle-check">浏览记录</el-dropdown-item></router-link>
-              <router-link to="/profile"><el-dropdown-item icon="el-icon-circle-check">账号操作</el-dropdown-item></router-link>
+              <router-link to="/selling">
+                <el-dropdown-item icon="el-icon-plus">我的汽车</el-dropdown-item>
+              </router-link>
+              <router-link to="/appointment">
+                <el-dropdown-item icon="el-icon-plus">我的预约</el-dropdown-item>
+              </router-link>
+              <router-link to="/history">
+                <el-dropdown-item icon="el-icon-circle-check">浏览记录</el-dropdown-item>
+              </router-link>
+              <router-link to="/profile">
+                <el-dropdown-item icon="el-icon-circle-check">账号操作</el-dropdown-item>
+              </router-link>
             </el-dropdown-menu>
           </el-dropdown>
 
-          <el-link @click="feedbackVisible = true" v-show="loginStatus">反馈</el-link>
+          <el-link v-show="loginStatus" @click="feedbackVisible = true">反馈</el-link>
 
-          <el-link @click="logout()" v-show="loginStatus"><i class="el-icon-user-solid"></i>
+          <el-link v-show="loginStatus" @click="logout()"><i class="el-icon-user-solid"></i>
             <span>退出登录</span>
           </el-link>
           <el-link href="#">咨询热线：400-000-8000</el-link>
@@ -47,11 +55,11 @@
     </el-container>
 
     <el-dialog
-        title="登录"
         :visible.sync="loginDialog"
+        title="登录"
         width="30%"
         @open="openLoginDialog">
-      <el-form :model="loginForm" :rules="loginRules" ref="loginForm" class="demo-ruleForm">
+      <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="demo-ruleForm">
         <el-form-item label="账号" prop="email">
           <el-input v-model="loginForm.email"></el-input>
         </el-form-item>
@@ -59,7 +67,7 @@
           <el-input v-model="loginForm.password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="login()" style="width: 100%; margin-top: 25px;">登录</el-button>
+          <el-button style="width: 100%; margin-top: 25px;" type="primary" @click="login()">登录</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -75,15 +83,13 @@ export default {
       loginStatus: false,
 
       loginDialog: false,
-      loginForm: {
-
-      },
+      loginForm: {},
       loginRules: {
         email: [
-          { required: true, message: '请输入账号', trigger: 'blur' },
+          {required: true, message: '请输入账号', trigger: 'blur'},
         ],
         password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
+          {required: true, message: '请输入密码', trigger: 'blur'},
         ]
       }
     }
@@ -191,22 +197,27 @@ export default {
 a {
   text-decoration: none;
 }
+
 /*正常的未被访问过的链接*/
 a:link {
   text-decoration: none;
 }
+
 /*已经访问过的链接*/
 a:visited {
   text-decoration: none;
 }
+
 /*鼠标划过(停留)的链接*/
 a:hover {
   text-decoration: none;
 }
+
 /* 正在点击的链接，鼠标在元素上按下还没有松开*/
 a:active {
   text-decoration: none;
 }
+
 /* 获得焦点的时候 鼠标松开时显示的颜色*/
 a:focus {
   text-decoration: none;

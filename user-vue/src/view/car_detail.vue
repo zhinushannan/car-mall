@@ -7,8 +7,8 @@
 
         <el-col :lg="12" :md="12" :sm="12" :xl="12" :xs="12">
           <el-image
-              :src="carDetail.img[0].url"
               :preview-src-list="carDetail.imgList"
+              :src="carDetail.img[0].url"
               fit="cover"
               style="width: 100%; height: 400px"></el-image>
         </el-col>
@@ -89,7 +89,7 @@
     <div style="margin-top: 50px">
       <h1 style="margin-top: 0">{{ carDetail.brand }} {{ carDetail.model }} {{ carDetail.displacement }} 基本信息</h1>
 
-      <el-descriptions class="margin-top" :column="3" border>
+      <el-descriptions :column="3" border class="margin-top">
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-user"></i>
@@ -138,11 +138,12 @@
     <div style="margin-top: 50px">
       <h1 style="margin-top: 0">{{ carDetail.brand }} {{ carDetail.model }} {{ carDetail.displacement }} 车辆照片</h1>
 
-      <div class="demo-image__preview" v-for="img in carDetail.img" style="margin-top: 10px; margin-bottom: 10px; display: inline-block; width: 45%; margin-right: 5%">
+      <div v-for="img in carDetail.img" class="demo-image__preview"
+           style="margin-top: 10px; margin-bottom: 10px; display: inline-block; width: 45%; margin-right: 5%">
         <el-image
-            style="width: 100%; height: 400px"
+            :preview-src-list="carDetail.imgList"
             :src="img.url"
-            :preview-src-list="carDetail.imgList">
+            style="width: 100%; height: 400px">
         </el-image>
       </div>
 

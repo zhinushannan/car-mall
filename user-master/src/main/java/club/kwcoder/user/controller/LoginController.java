@@ -1,12 +1,11 @@
 package club.kwcoder.user.controller;
 
 import club.kwcoder.server.bean.ResultBean;
+import club.kwcoder.server.consts.UserConst;
 import club.kwcoder.server.dto.UserDTO;
 import club.kwcoder.server.service.UserLoginService;
 import club.kwcoder.server.utils.RedisUtil;
 import org.apache.commons.lang.StringUtils;
-import org.checkerframework.checker.units.qual.A;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +13,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-
-import club.kwcoder.server.consts.UserConst;
 
 @RestController
 public class LoginController {
@@ -53,8 +50,9 @@ public class LoginController {
     }
 
     @RequestMapping(value = "logout", method = RequestMethod.POST)
-    public ResultBean<String> logout(@CookieValue("email") String email) {
-        redisUtil.del(email);
+    public ResultBean<String> logout(@CookieValue(name = "email", value = "", required = false) String email,
+                                     HttpServletResponse response) {
+        userLoginService.logout(email, response);
         return ResultBean.getSuccess("退出成功！", null);
     }
 

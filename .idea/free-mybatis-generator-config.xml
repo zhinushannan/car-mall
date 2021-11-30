@@ -3,6 +3,31 @@
   <component name="PersistentConfig">
     <option name="historyConfigList">
       <map>
+        <entry key="browse">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="BrowseMapper" />
+              <option name="daoPackage" value="club.kwcoder.server.mapper" />
+              <option name="daoPostfix" value="BrowseMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="BrowseDO" />
+              <option name="modelPackage" value="club.kwcoder.server.dataobject" />
+              <option name="name" value="browse" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="car_id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/server" />
+              <option name="tableName" value="browse" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+            </Config>
+          </value>
+        </entry>
         <entry key="car">
           <value>
             <Config>

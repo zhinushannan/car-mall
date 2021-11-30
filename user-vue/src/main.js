@@ -28,10 +28,10 @@ axios.defaults.withCredentials = true;
 
 
 Vue.prototype.$layer = layer(Vue, {
-  msgtime: 3 //目前只有一项，即msg方法的默认消失时间，单位：秒
+    msgtime: 3 //目前只有一项，即msg方法的默认消失时间，单位：秒
 });
 
 new Vue({
-  router,
-  render: h => h(App)
+    router,
+    render: h => h(App)
 }).$mount('#app')

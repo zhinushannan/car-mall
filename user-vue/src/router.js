@@ -5,6 +5,7 @@ import Index from "./view/index"
 import Main from "./view/main"
 
 import CarDetail from "./view/car_detail"
+import History from "./view/history"
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,11 @@ const routes = [
                 path: "/carDetail/:id",
                 name: "CarDetail",
                 component: CarDetail
+            },
+            {
+                path: "/history",
+                name: "History",
+                component: History
             }
         ]
     },

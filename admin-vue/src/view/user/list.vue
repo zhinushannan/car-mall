@@ -3,17 +3,17 @@
   <div id="table">
     <el-card class="box-card">
       <template>
-        <el-table :data="page.data" height="450" border style="width: 100%">
-          <el-table-column type="index" label="序号" align="center" width="50" />
-          <el-table-column prop="email" label="邮箱" width="180" />
-          <el-table-column prop="createdGmt" label="注册时间" align="center" />
-          <el-table-column prop="modifiedGmt" label="上次修改时间" align="center" />
-          <el-table-column prop="lastLogin" label="上次登录时间" align="center" />
-          <el-table-column fixed="right" align="center" label="操作" width="200">
+        <el-table :data="page.data" border height="450" style="width: 100%">
+          <el-table-column align="center" label="序号" type="index" width="50"/>
+          <el-table-column label="邮箱" prop="email" width="180"/>
+          <el-table-column align="center" label="注册时间" prop="createdGmt"/>
+          <el-table-column align="center" label="上次修改时间" prop="modifiedGmt"/>
+          <el-table-column align="center" label="上次登录时间" prop="lastLogin"/>
+          <el-table-column align="center" fixed="right" label="操作" width="200">
             <template slot-scope="scope">
-              <el-tooltip class="item" effect="dark" :content="'将密码重置为：' + scope.row.email" placement="bottom">
+              <el-tooltip :content="'将密码重置为：' + scope.row.email" class="item" effect="dark" placement="bottom">
                 <el-popconfirm title="确定重置该用户的密码吗？" @confirm="reset(scope.row.email)">
-                  <el-button size="middle" slot="reference"><i class="el-icon-setting"></i>重置密码</el-button>
+                  <el-button slot="reference" size="middle"><i class="el-icon-setting"></i>重置密码</el-button>
                 </el-popconfirm>
               </el-tooltip>
             </template>
@@ -22,8 +22,10 @@
       </template>
       <!-- 分页 -->
       <div class="block" style="margin-top: 20px;">
-        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page.page"
-                       :page-sizes="[10, 20, 50, 100]" :page-size="page.size" layout="total, sizes, prev, pager, next, jumper" :total="page.total">
+        <el-pagination :current-page="page.page" :page-size="page.size" :page-sizes="[10, 20, 50, 100]"
+                       :total="page.total"
+                       background layout="total, sizes, prev, pager, next, jumper"
+                       @size-change="handleSizeChange" @current-change="handleCurrentChange">
         </el-pagination>
       </div>
     </el-card>

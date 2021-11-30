@@ -2,10 +2,10 @@ package club.kwcoder.server.mapper;
 
 import club.kwcoder.server.dataobject.CarDO;
 import club.kwcoder.server.dataobject.CarDOExample;
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface CarMapper {

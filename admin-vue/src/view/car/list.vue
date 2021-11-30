@@ -3,17 +3,17 @@
   <div id="table">
     <el-card class="box-card">
       <template>
-        <el-table :data="page.data" height="450" border style="width: 100%">
-          <el-table-column type="index" label="序号" align="center" width="50" />
-          <el-table-column prop="brand" label="品牌" align="center" width="80" />
-          <el-table-column prop="model" label="车系" width="150" />
-          <el-table-column prop="gearbox" label="变速箱" align="center" width="100" />
-          <el-table-column prop="mileage" label="表显里程" align="center" width="80" />
-          <el-table-column prop="price" label="售价" align="center" width="80" />
-          <el-table-column prop="userEmail" label="车主邮箱" align="center" width="200" />
-          <el-table-column prop="registerDate" label="上牌日期" align="center" />
-          <el-table-column prop="createdGmt" label="注册时间" align="center" />
-          <el-table-column fixed="right" align="center" label="查看">
+        <el-table :data="page.data" border height="450" style="width: 100%">
+          <el-table-column align="center" label="序号" type="index" width="50"/>
+          <el-table-column align="center" label="品牌" prop="brand" width="80"/>
+          <el-table-column label="车系" prop="model" width="150"/>
+          <el-table-column align="center" label="变速箱" prop="gearbox" width="100"/>
+          <el-table-column align="center" label="表显里程" prop="mileage" width="80"/>
+          <el-table-column align="center" label="售价" prop="price" width="80"/>
+          <el-table-column align="center" label="车主邮箱" prop="userEmail" width="200"/>
+          <el-table-column align="center" label="上牌日期" prop="registerDate"/>
+          <el-table-column align="center" label="注册时间" prop="createdGmt"/>
+          <el-table-column align="center" fixed="right" label="查看">
             <template slot-scope="scope">
               <el-button size="middle" @click="check(scope.row)"><i class="el-icon-search"></i>查看</el-button>
             </template>
@@ -22,8 +22,10 @@
       </template>
       <!-- 分页 -->
       <div class="block" style="margin-top: 20px;">
-        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page.page"
-                       :page-sizes="[10, 20, 50, 100]" :page-size="page.size" layout="total, sizes, prev, pager, next, jumper" :total="page.total">
+        <el-pagination :current-page="page.page" :page-size="page.size" :page-sizes="[10, 20, 50, 100]"
+                       :total="page.total"
+                       background layout="total, sizes, prev, pager, next, jumper"
+                       @size-change="handleSizeChange" @current-change="handleCurrentChange">
         </el-pagination>
       </div>
     </el-card>

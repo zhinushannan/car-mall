@@ -15,22 +15,22 @@
       <!-- 导航栏盒子-->
       <div class="left-navs-box">
         <div class="navs-inner-box">
-          <el-menu :default-active="id" class="navs-item-box" background-color="#545c64" text-color="#ffffff"
-                   active-text-color="#ffd04b">
-            <el-menu-item @click="welTab" index="0">
+          <el-menu :default-active="id" active-text-color="#ffd04b" background-color="#545c64" class="navs-item-box"
+                   text-color="#ffffff">
+            <el-menu-item index="0" @click="welTab">
               <i class="el-icon-s-platform"></i>
               <span slot="title">控制台</span>
             </el-menu-item>
             <div v-for="(item) in navs" :key="item.id">
               <!-- 没有子选项 -->
-              <el-menu-item @click="openTabs(item)" v-if="item.href!=='#'" :index="item.id">
+              <el-menu-item v-if="item.href!=='#'" :index="item.id" @click="openTabs(item)">
                 <i :class="item.icon"></i>
                 <span slot="title">{{ item.title }}</span>
               </el-menu-item>
               <!-- 有子选项 -->
               <el-submenu v-if="item.href==='#'" :index="item.id">
                 <template slot="title"><i :class="item.icon"></i>{{ item.title }}</template>
-                <el-menu-item v-for="(item) in item.children" @click="openTabs(item)" :key="item.id" :index="item.id">
+                <el-menu-item v-for="(item) in item.children" :key="item.id" :index="item.id" @click="openTabs(item)">
                   <i :class="item.icon"></i>
                   {{ item.title }}
                 </el-menu-item>
@@ -46,7 +46,7 @@
     <div class="right-box">
       <!-- 顶部栏 -->
       <div class="right-header">
-        <i @click="isShowNav" :class="showNav ? 'el-icon-s-fold':'el-icon-s-unfold'"></i>
+        <i :class="showNav ? 'el-icon-s-fold':'el-icon-s-unfold'" @click="isShowNav"></i>
         <div class="header-right">
           <el-avatar size="small" src="./img/head.jpg"></el-avatar>
           <!--个人信息操作 -->
@@ -68,20 +68,20 @@
       <div class="right-tab-box">
         <div class="tab-item-box">
           <div class="tab-item-ul">
-            <div class="tab-item" @click="welTab" :class="welcome?'tab-item-active':'1'">
+            <div :class="welcome?'tab-item-active':'1'" class="tab-item" @click="welTab">
               <i class="el-icon-s-platform  tab-item-icon"></i>
               <div class="tab-item-text">控制台</div>
             </div>
-            <div class="tab-item" @click="tabActive(item)" :id="item.id" :class="id===item.id?'tab-item-active':'1'"
-                 v-for="(item,index) in tabs">
-              <i class="tab-item-icon" :class="item.data.icon"></i>
+            <div v-for="(item,index) in tabs" :id="item.id" :class="id===item.id?'tab-item-active':'1'" class="tab-item"
+                 @click="tabActive(item)">
+              <i :class="item.data.icon" class="tab-item-icon"></i>
               <div class="tab-item-text">{{ item.data.title }}</div>
-              <i @click.stop="tabClose(item)" class="el-icon-close tab-item-close"></i>
+              <i class="el-icon-close tab-item-close" @click.stop="tabClose(item)"></i>
             </div>
           </div>
         </div>
         <div class="tabs-close-box">
-          <el-dropdown @command="tabsCloseItem" :show-timeout=100>
+          <el-dropdown :show-timeout=100 @command="tabsCloseItem">
             <i class="el-icon-arrow-down"></i>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="a">关闭当前标签页</el-dropdown-item>
@@ -95,7 +95,7 @@
       <!-- 内容区域 iframe -->
       <div class="right-contain">
         <template v-for="(item) in tabs">
-          <iframe :src="item.data.href" width="100%" height="100%" frameborder="none" v-show="id===item.id">
+          <iframe v-show="id===item.id" :src="item.data.href" frameborder="none" height="100%" width="100%">
           </iframe>
         </template>
 

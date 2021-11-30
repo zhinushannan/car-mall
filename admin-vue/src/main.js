@@ -19,13 +19,13 @@ Vue.config.productionTip = false
 Vue.use(ElementUI);
 
 Vue.prototype.$axios = axios
-axios.defaults.baseURL="http://localhost:9000/admin/"
+axios.defaults.baseURL = "http://localhost:9000/admin/"
 
 Vue.prototype.$layer = layer(Vue, {
-  msgtime: 3 //目前只有一项，即msg方法的默认消失时间，单位：秒
+    msgtime: 3 //目前只有一项，即msg方法的默认消失时间，单位：秒
 });
 
 new Vue({
-  router,
-  render: h => h(App)
+    router,
+    render: h => h(App)
 }).$mount('#app')

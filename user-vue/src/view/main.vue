@@ -5,20 +5,22 @@
     <div class="car-containers">
 
 
-      <el-row class="car-container" :gutter="25">
-        <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6" v-for="car in page.data" style="margin-top: 20px">
+      <el-row :gutter="25" class="car-container">
+        <el-col v-for="car in page.data" :lg="6" :md="6" :sm="6" :xl="6" :xs="6" style="margin-top: 20px">
           <el-card shadow="hover">
 
             <el-image
-                style="width: 100%; height: 200px"
                 :src="car.img[0].url"
-                fit="cover"></el-image>
+                fit="cover"
+                style="width: 100%; height: 200px"></el-image>
 
-            <div style="padding-right: 14px" class="car-info">
+            <div class="car-info" style="padding-right: 14px">
               <span class="car-name">{{ car.brand }} {{ car.model }} {{ car.displacement }} {{ car.gearbox }}</span>
               <span class="car-brief">{{ car.registerDate.split("-")[0] }}年 丨 {{ car.mileage }}万公里</span>
               <span class="car-price"><span class="car-price-now">{{ car.price }}万</span>&nbsp;
-                <span class="car-price-old">{{ car.showPrice }}万</span>&nbsp;&nbsp;|&nbsp;&nbsp;<el-link type="primary" :href="'#/carDetail/' + car.id" style="font-size: 14px">查看详情</el-link></span>
+                <span class="car-price-old">{{ car.showPrice }}万</span>&nbsp;&nbsp;|&nbsp;&nbsp;<el-link :href="'#/carDetail/' + car.id"
+                                                                                                         style="font-size: 14px"
+                                                                                                         type="primary">查看详情</el-link></span>
             </div>
             <div v-if="loginStatus">
               <el-tag v-if="car.frequency">浏览过{{ car.frequency }}次，上次浏览{{ car.lastBrowse }}</el-tag>
@@ -32,13 +34,13 @@
 
     <!-- 分页 -->
     <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
         :current-page="page.page"
-        :page-sizes="[8, 16, 32]"
         :page-size="page.size"
+        :page-sizes="[8, 16, 32]"
+        :total="page.total"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="page.total">
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange">
     </el-pagination>
 
   </div>
@@ -50,19 +52,11 @@ export default {
   name: "main",
   data() {
     return {
-      loginStatus: '',
-      value: {},
-      mainCondition: {},
-      moreCondition: {},
-      moreConditionKeys: [],
+      loginStatus: false,
       page: {
         page: 1,
         size: 8
       },
-      conditions: [],
-      conditionPost: {
-        "status": 0
-      }
     }
   },
   methods: {
@@ -88,6 +82,11 @@ export default {
   mounted() {
     let _this = this
     _this.list()
+
+    if (_this.$cookies.get("email")) {
+      _this.loginStatus = true
+    }
+
   }
 
 }

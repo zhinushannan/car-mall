@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.kwcoder.server.mapper.BrowseMapper">
+    <resultMap id="BaseResultMap" type="club.kwcoder.server.dataobject.BrowseDO">
+        <id column="car_id" jdbcType="VARCHAR" property="carId"/>
+        <id column="user_email" jdbcType="VARCHAR" property="userEmail"/>
+        <result column="frequency" jdbcType="INTEGER" property="frequency"/>
+        <result column="last_browse" jdbcType="TIMESTAMP" property="lastBrowse"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        car_id
+        , user_email, frequency, last_browse
+    </sql>
+    <select id="selectByExample" parameterType="club.kwcoder.server.dataobject.BrowseDOExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from browse
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="club.kwcoder.server.dataobject.BrowseDOKey"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from browse
+        where car_id = #{carId,jdbcType=VARCHAR}
+        and user_email = #{userEmail,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="club.kwcoder.server.dataobject.BrowseDOKey">
+        delete
+        from browse
+        where car_id = #{carId,jdbcType=VARCHAR}
+          and user_email = #{userEmail,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="club.kwcoder.server.dataobject.BrowseDOExample">
+        delete from browse
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" keyColumn="car_id" keyProperty="carId" parameterType="club.kwcoder.server.dataobject.BrowseDO">
+        insert into browse (car_id, user_email, frequency, last_browse)
+        values (#{carId,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, #{frequency,jdbcType=INTEGER},
+                #{lastBrowse,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="car_id" keyProperty="carId"
+            parameterType="club.kwcoder.server.dataobject.BrowseDO" useGeneratedKeys="true">
+        insert into browse
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userEmail != null">
+                user_email,
+            </if>
+            <if test="frequency != null">
+                frequency,
+            </if>
+            <if test="lastBrowse != null">
+                last_browse,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userEmail != null">
+                #{userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="frequency != null">
+                #{frequency,jdbcType=INTEGER},
+            </if>
+            <if test="lastBrowse != null">
+                #{lastBrowse,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="club.kwcoder.server.dataobject.BrowseDOExample"
+            resultType="java.lang.Long">
+        select count(*) from browse
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update browse
+        <set>
+            <if test="record.carId != null">
+                car_id = #{record.carId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.userEmail != null">
+                user_email = #{record.userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="record.frequency != null">
+                frequency = #{record.frequency,jdbcType=INTEGER},
+            </if>
+            <if test="record.lastBrowse != null">
+                last_browse = #{record.lastBrowse,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update browse
+        set car_id = #{record.carId,jdbcType=VARCHAR},
+        user_email = #{record.userEmail,jdbcType=VARCHAR},
+        frequency = #{record.frequency,jdbcType=INTEGER},
+        last_browse = #{record.lastBrowse,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="club.kwcoder.server.dataobject.BrowseDO">
+        update browse
+        <set>
+            <if test="frequency != null">
+                frequency = #{frequency,jdbcType=INTEGER},
+            </if>
+            <if test="lastBrowse != null">
+                last_browse = #{lastBrowse,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where car_id = #{carId,jdbcType=VARCHAR}
+        and user_email = #{userEmail,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="club.kwcoder.server.dataobject.BrowseDO">
+        update browse
+        set frequency   = #{frequency,jdbcType=INTEGER},
+            last_browse = #{lastBrowse,jdbcType=TIMESTAMP}
+        where car_id = #{carId,jdbcType=VARCHAR}
+          and user_email = #{userEmail,jdbcType=VARCHAR}
+    </update>
+</mapper>

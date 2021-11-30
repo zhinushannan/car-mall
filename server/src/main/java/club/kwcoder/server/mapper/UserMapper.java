@@ -21,6 +21,7 @@ public interface UserMapper {
 
     /**
      * 通过此方法查询的用户信息不显示盐和密码
+     *
      * @param example example
      * @return 返回用户信息列表
      */
@@ -28,6 +29,7 @@ public interface UserMapper {
 
     /**
      * 通过此方法查询的用户信息显示盐和密码
+     *
      * @param email 用户的email
      * @return 返回用户信息
      */

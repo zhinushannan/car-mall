@@ -9,7 +9,12 @@ public interface CarService {
 
     void list(PageBean<CarDTO> page);
 
+    void list(PageBean<CarDTO> page, String email);
+
+    void history(PageBean<CarDTO> page, String email);
+
     CarDTO query(String id);
 
     void delete(String id);
+
 }

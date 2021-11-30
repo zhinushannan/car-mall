@@ -35,21 +35,22 @@ public class UserDTO implements Serializable {
     /**
      * 用户创建的时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime createdGmt;
     /**
      * 用户上次修改个人信息的时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime modifiedGmt;
     /**
      * 用户上次登录的时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime lastLogin;
 
     /**
      * 判断邮箱是否为标准格式
+     *
      * @return 是返回 FALSE， 不是返回 TRUE
      */
     public boolean isEmailLegal() {

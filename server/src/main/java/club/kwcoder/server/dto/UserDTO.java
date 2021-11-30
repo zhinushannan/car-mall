@@ -48,6 +48,10 @@ public class UserDTO implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private LocalDateTime lastLogin;
 
+    /**
+     * 判断邮箱是否为标准格式
+     * @return 是返回 FALSE， 不是返回 TRUE
+     */
     public boolean isEmailLegal() {
         return !ValidatorUtil.validateEmail(this.email);
     }

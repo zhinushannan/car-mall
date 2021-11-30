@@ -8,12 +8,12 @@
           <el-link href="/">ETAO</el-link>
         </div>
         <div class="link">
-          <el-link v-show="!loginStatus" href="#/login">我要卖车</el-link>
+          <el-link v-show="!loginStatus" @click="loginDialog = true">我要卖车</el-link>
           <el-link v-show="loginStatus" href="#/sell">我要卖车</el-link>
-          <el-link href="#/login" v-show="!loginStatus"><i class="el-icon-user-solid"></i>
+          <el-link v-show="!loginStatus" @click="loginDialog = true"><i class="el-icon-user-solid"></i>
             <span>用户登录</span>
           </el-link>
-          <el-link href="#/login" v-show="!loginStatus">个人中心</el-link>
+          <el-link v-show="!loginStatus" @click="loginDialog = true">个人中心</el-link>
 
           <el-dropdown v-show="loginStatus">
             <span class="el-dropdown-link">
@@ -46,6 +46,24 @@
       <el-footer>&copy;18软件2毕业设计 - 李铭扬</el-footer>
     </el-container>
 
+    <el-dialog
+        title="登录"
+        :visible.sync="loginDialog"
+        width="30%"
+        @open="openLoginDialog">
+      <el-form :model="loginForm" :rules="loginRules" ref="loginForm" class="demo-ruleForm">
+        <el-form-item label="账号" prop="email">
+          <el-input v-model="loginForm.email"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="loginForm.password"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="login()" style="width: 100%; margin-top: 25px;">登录</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -54,7 +72,46 @@ export default {
   name: "index",
   data() {
     return {
-      loginStatus: false
+      loginStatus: false,
+
+      loginDialog: false,
+      loginForm: {
+
+      },
+      loginRules: {
+        email: [
+          { required: true, message: '请输入账号', trigger: 'blur' },
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+        ]
+      }
+    }
+  },
+  methods: {
+    openLoginDialog() {
+      let _this = this
+      _this.loginForm = {}
+    },
+    login() {
+      let _this = this
+      _this.$refs['loginForm'].validate((valid) => {
+        if (valid) {
+          _this.$axios.post("/login", _this.loginForm).then((response) => {
+            let data = response.data
+            if (data.success) {
+              _this.$message.success(data.message)
+              _this.loginStatus = true
+              _this.loginDialog = false
+              _this.loginForm = {}
+            } else {
+              _this.$message.error(data.message)
+            }
+          })
+        } else {
+          _this.$message.error("请按要求输入相关内容！")
+        }
+      });
     }
   },
   mounted() {

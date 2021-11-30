@@ -23,4 +23,8 @@ public class ResultBean<T> {
         return new ResultBean<>(true, 200, message, data);
     }
 
+    public static <T> ResultBean<T> getError(String message) {
+        return new ResultBean<>(false, 200, message, null);
+    }
+
 }

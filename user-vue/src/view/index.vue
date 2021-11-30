@@ -112,11 +112,24 @@ export default {
           _this.$message.error("请按要求输入相关内容！")
         }
       });
+    },
+    logout() {
+      let _this = this
+      _this.$axios.post("/logout").then((response) => {
+        _this.$message.success(response.data.message)
+        _this.$cookies.remove("email")
+        _this.$cookies.remove("token")
+      })
     }
   },
   mounted() {
     let _this = this
     _this.$router.push("main")
+
+    if (_this.$cookies.get("email")) {
+      _this.loginStatus = true
+    }
+
   }
 }
 </script>

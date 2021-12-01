@@ -6,6 +6,7 @@ import Main from "./view/main"
 
 import CarDetail from "./view/car_detail"
 import History from "./view/history"
+import Sell from "./view/sell"
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes = [
                 path: "/history",
                 name: "History",
                 component: History
+            },
+            {
+                path: "/sell",
+                name: "Sell",
+                component: Sell
             }
         ]
     },

@@ -31,8 +31,8 @@ public class CarController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public ResultBean<PageBean<CarDTO>> list(@RequestBody PageBean<CarDTO> page,
-                                             @CookieValue(name = "email", value = "", required = false) String email,
-                                             @CookieValue(name = "token", value = "", required = false) String token,
+                                             @CookieValue(name = "email", defaultValue = "", required = false) String email,
+                                             @CookieValue(name = "token", defaultValue = "", required = false) String token,
                                              HttpServletResponse response) {
         if (StringUtils.isNotBlank(email) && StringUtils.equals(token, redisUtil.getString("email:" + email))) {
             carService.list(page, email);

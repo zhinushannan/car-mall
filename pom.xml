@@ -14,6 +14,7 @@
         <module>admin-master</module>
         <module>server</module>
         <module>user-master</module>
+        <module>common</module>
     </modules>
 
     <properties>
@@ -85,6 +86,13 @@
                 <version>1.2.78</version>
             </dependency>
 
+
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>3.10.2</version>
+            </dependency>
+
             <dependency>
                 <groupId>club.kwcoder</groupId>
                 <artifactId>server</artifactId>
@@ -96,6 +104,8 @@
                 <artifactId>spring-boot-starter-data-redis</artifactId>
                 <version>2.3.7.RELEASE</version>
             </dependency>
+
+
 
         </dependencies>
 

@@ -68,7 +68,43 @@
         </el-form-item>
         <el-form-item>
           <el-button style="width: 100%; margin-top: 25px;" type="primary" @click="login()">登录</el-button>
+          <div style="text-align: center;">
+            <el-link style="display: inline;" type="primary" @click="registerDialog = true">注册</el-link>&nbsp;|&nbsp;<el-link
+              style="display: inline;" type="primary">找回密码
+          </el-link>
+          </div>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
 
+    <el-dialog
+        :visible.sync="registerDialog"
+        title="注册"
+        width="30%"
+        @open="openLoginDialog">
+      <el-form ref="registerForm" :model="registerForm" :rules="registerRules" class="demo-ruleForm">
+        <el-form-item prop="email">
+          <el-input v-model="registerForm.email" placeholder="请输入邮箱"></el-input>
+        </el-form-item>
+        <el-form-item prop="code">
+          <el-input v-model="registerForm.code" placeholder="请输入邮箱验证码" style="width: 60%; float:left;"></el-input>
+          <div style="height: 1px; width: 5%; float:left;"></div>
+          <el-button style="width: 35%; float:left;" type="primary" @click="code()">获取验证码</el-button>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input v-model="registerForm.password" placeholder="请输入重复密码"></el-input>
+        </el-form-item>
+        <el-form-item prop="repeatPassword">
+          <el-input v-model="registerForm.repeatPassword" placeholder="请输入重复密码"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button style="width: 100%; margin-top: 25px;" type="primary" @click="register()">登录</el-button>
+          <div style="text-align: center;">
+            <el-link style="display: inline;" type="primary">注册</el-link>&nbsp;|&nbsp;<el-link style="display: inline;"
+                                                                                               type="primary">
+            找回密码
+          </el-link>
+          </div>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -91,6 +127,23 @@ export default {
         ],
         password: [
           {required: true, message: '请输入密码', trigger: 'blur'},
+        ]
+      },
+
+      registerDialog: false,
+      registerForm: {},
+      registerRules: {
+        email: [
+          {required: true, message: '请输入邮箱', trigger: 'blur'},
+        ],
+        code: [
+          {required: true, message: '请输入邮箱验证码', trigger: 'blur'},
+        ],
+        password: [
+          {required: true, message: '请输入密码', trigger: 'blur'},
+        ],
+        repeatPassword: [
+          {required: true, message: '请输入重复密码', trigger: 'blur'},
         ]
       }
     }
@@ -126,6 +179,41 @@ export default {
         _this.$message.success(response.data.message)
         _this.$cookies.remove("email")
         _this.$cookies.remove("token")
+      })
+    },
+    code() {
+      let _this = this
+      let email = _this.registerForm['email']
+      if (email !== '' && email !== undefined && email !== null) {
+        _this.$axios.post("/sendCode", _this.registerForm).then((response) => {
+          let data = response.data
+          if (data.success) {
+            _this.$message.success(data.message)
+          } else {
+            _this.$message.error(data.message)
+          }
+        })
+      } else {
+        _this.$message.error("请输入邮箱！")
+      }
+    },
+    register() {
+      let _this = this
+      _this.$refs['registerForm'].validate((valid) => {
+        if (valid) {
+          _this.$axios.post("/register", _this.registerForm).then((response) => {
+            let data = response.data
+            if (data.success) {
+              _this.$message.success(data.message)
+              _this.registerDialog = false
+              _this.registerForm = {}
+            } else {
+              _this.$message.error(data.message)
+            }
+          })
+        } else {
+          _this.$message.error("请按要求输入相关内容！")
+        }
       })
     }
   },

@@ -24,8 +24,8 @@ import java.util.Map;
 public class FileController {
 
     @RequestMapping(value = "/upload/img")
-    public ResultBean<Map<String,String>> uploadImg(MultipartFile file) {
-        Map<String,String> outMap = new HashMap<>();
+    public ResultBean<Map<String, String>> uploadImg(MultipartFile file) {
+        Map<String, String> outMap = new HashMap<>();
 
         String imgName = file.getOriginalFilename();
 

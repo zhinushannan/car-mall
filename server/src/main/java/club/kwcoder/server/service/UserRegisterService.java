@@ -9,7 +9,7 @@ public interface UserRegisterService {
 
     boolean hasRegistered(String email);
 
-    void register(UserDTO user);
+    ResultBean<String> register(UserDTO user);
 
     ResultBean<String> changePassword(UserDTO user);
 

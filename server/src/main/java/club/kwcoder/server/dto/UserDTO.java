@@ -20,6 +20,12 @@ public class UserDTO implements Serializable {
      * 用户的盐
      */
     private String salt;
+
+    /**
+     * 邮箱验证码，注册时会使用到
+     */
+    private String code;
+
     /**
      * 原密码，修改密码时会用到
      */

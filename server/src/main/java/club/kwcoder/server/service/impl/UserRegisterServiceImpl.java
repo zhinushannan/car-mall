@@ -8,6 +8,7 @@ import club.kwcoder.server.service.UserRegisterService;
 import club.kwcoder.server.utils.CodeUtil;
 import club.kwcoder.server.utils.EmailUtil;
 import club.kwcoder.server.utils.RedisUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,13 +48,27 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     }
 
     @Override
-    public void register(UserDTO user) {
-        UserDO userDO = this.getUserDO(user);
-        userMapper.insert(userDO);
+    public ResultBean<String> register(UserDTO user) {
+        if (user.isPasswordEqualRepeat() || user.isEmailLegal()) {
+            return ResultBean.getForbid("参数错误！");
+        }
+        if (this.hasRegistered(user.getEmail())) {
+            return ResultBean.getForbid("该邮箱已被注册！");
+        }
+        if (StringUtils.equals(user.getCode(), redisUtil.getString("code:" + user.getEmail()))) {
+            UserDO userDO = this.getUserDO(user);
+            userMapper.insert(userDO);
+            return ResultBean.getSuccess("注册成功！", null);
+        }
+        return ResultBean.getForbid("验证码错误或已失效，请检查后重新注册！");
     }
 
     @Override
     public ResultBean<String> changePassword(UserDTO user) {
+        if (user.isPasswordEqualRepeat() || user.isEmailLegal()) {
+            return ResultBean.getForbid("参数错误！");
+        }
+
         UserDO userDO = userMapper.selectByPrimaryKey(user.getEmail());
 
         user.setSalt(userDO.getSalt());

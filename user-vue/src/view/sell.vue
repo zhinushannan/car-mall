@@ -49,17 +49,17 @@
       </el-form-item>
 
       <el-upload
-          list-type="picture-card"
-          :limit=5
-          action="http://127.0.0.1:9000/common/upload/img"
           :auto-upload=true
+          :before-remove="uploadRemove"
+          :limit=5
           :on-exceed="uploadExceed"
           :on-success="uploadSuccess"
-          :before-remove="uploadRemove"
           accept="image/png, image/jpeg"
+          action="http://127.0.0.1:9000/common/upload/img"
+          list-type="picture-card"
       >
         <i slot="default" class="el-icon-plus"></i>
-        <div slot="file" v-for="file in fileList">
+        <div v-for="file in fileList" slot="file">
           <img :src="file.url" alt="" class="el-upload-list__item-thumbnail">
           <span class="el-upload-list__item-actions">
             <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleRemove(file)">
@@ -136,7 +136,7 @@ export default {
       console.log(this.imgList)
     },
     uploadRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`).then(value => {
+      return this.$confirm(`确定移除 ${file.name}？`).then(value => {
         if (value === "confirm") {
           console.log(this.imgList.length)
           for (let i = 0; i < this.imgList.length; i++) {

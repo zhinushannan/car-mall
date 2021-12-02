@@ -17,9 +17,10 @@
               <span class="car-name">{{ car.brand }} {{ car.model }} {{ car.displacement }} {{ car.gearbox }}</span>
               <span class="car-brief">{{ car.registerDate.split("-")[0] }}年 丨 {{ car.mileage }}万公里</span>
               <span class="car-price"><span class="car-price-now">{{ car.price }}万</span>&nbsp;
-                <span class="car-price-old">{{ car.showPrice }}万</span>&nbsp;&nbsp;|&nbsp;&nbsp;<el-link :href="'#/carDetail/' + car.id"
-                                                                                                         style="font-size: 14px"
-                                                                                                         type="primary">查看详情</el-link></span>
+                <span class="car-price-old">{{ car.showPrice }}万</span>&nbsp;&nbsp;|&nbsp;&nbsp;<el-link
+                    :href="'#/carDetail/' + car.id"
+                    style="font-size: 14px"
+                    type="primary">查看详情</el-link></span>
             </div>
             <div>
               <el-tag v-if="car.frequency">浏览过{{ car.frequency }}次，上次浏览{{ car.lastBrowse }}</el-tag>

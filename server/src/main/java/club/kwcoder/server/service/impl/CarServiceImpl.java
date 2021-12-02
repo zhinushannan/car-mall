@@ -90,11 +90,13 @@ public class CarServiceImpl implements CarService {
             ids.add(browseDO.getCarId());
         }
 
-        CarDOExample carDOExample = new CarDOExample();
-        carDOExample.or().andIdIn(ids);
-        List<CarDO> carDOS = carMapper.selectByExample(carDOExample);
-        List<CarDTO> carDTOS = CopyUtil.copyList(carDOS, CarDTO.class);
-
+        List<CarDTO> carDTOS = new ArrayList<>();
+        if (ids.size() != 0) {
+            CarDOExample carDOExample = new CarDOExample();
+            carDOExample.or().andIdIn(ids);
+            List<CarDO> carDOS = carMapper.selectByExample(carDOExample);
+            carDTOS = CopyUtil.copyList(carDOS, CarDTO.class);
+        }
         this.setFrequencyAndLastBrowse(browseDOS, carDTOS);
 
         PageInfo<BrowseDO> pageInfo = PageInfo.of(browseDOS);

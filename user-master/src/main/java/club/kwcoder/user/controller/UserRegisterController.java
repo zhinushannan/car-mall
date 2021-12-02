@@ -3,6 +3,7 @@ package club.kwcoder.user.controller;
 import club.kwcoder.server.bean.ResultBean;
 import club.kwcoder.server.dto.UserDTO;
 import club.kwcoder.server.service.UserRegisterService;
+import club.kwcoder.server.utils.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,16 @@ public class UserRegisterController {
 
     @Autowired
     private UserRegisterService userRegisterService;
+
+    @RequestMapping(value = "sendCode", method = RequestMethod.POST)
+    public ResultBean<String> sendCode(@RequestBody String email) {
+        boolean b = userRegisterService.sendCode(email);
+        if (b) {
+            return ResultBean.getSuccess("发送成功！", null);
+        } else {
+            return ResultBean.getError("未知错误，请稍后重试！");
+        }
+    }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public ResultBean<String> register(@RequestBody UserDTO register) {

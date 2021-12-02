@@ -9,6 +9,8 @@ public interface UserLoginService {
 
     ResultBean<String> login(UserDTO user);
 
+    boolean hasLogin(String email, String token);
+
     void logout(String email, HttpServletResponse response);
 
 }

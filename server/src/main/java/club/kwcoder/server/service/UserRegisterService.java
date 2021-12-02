@@ -5,6 +5,8 @@ import club.kwcoder.server.dto.UserDTO;
 
 public interface UserRegisterService {
 
+    boolean sendCode(String email);
+
     boolean hasRegistered(String email);
 
     void register(UserDTO user);

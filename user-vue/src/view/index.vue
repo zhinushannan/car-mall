@@ -68,6 +68,7 @@
         </el-form-item>
         <el-form-item>
           <el-button style="width: 100%; margin-top: 25px;" type="primary" @click="login()">登录</el-button>
+
         </el-form-item>
       </el-form>
     </el-dialog>

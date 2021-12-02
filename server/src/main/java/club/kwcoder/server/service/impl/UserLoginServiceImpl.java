@@ -33,6 +33,12 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
 
     @Override
+    public boolean hasLogin(String email, String token) {
+        return (StringUtils.isNotBlank(email) && StringUtils.isNotBlank(token)) &&
+                (StringUtils.isNotBlank(email) && StringUtils.equals(token, redisUtil.getString("email:" + email)));
+    }
+
+    @Override
     public void logout(String email, HttpServletResponse response) {
         CookieUtil.addCookie("email", "", 0, response);
         CookieUtil.addCookie("token", "", 0, response);

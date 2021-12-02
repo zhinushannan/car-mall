@@ -34,7 +34,7 @@ public class CarController {
                                              @CookieValue(name = "email", defaultValue = "", required = false) String email,
                                              @CookieValue(name = "token", defaultValue = "", required = false) String token,
                                              HttpServletResponse response) {
-        if (StringUtils.isNotBlank(email) && StringUtils.equals(token, redisUtil.getString("email:" + email))) {
+        if (userLoginService.hasLogin(email, token)) {
             carService.list(page, email);
         } else {
             userLoginService.logout(email, response);
@@ -48,7 +48,7 @@ public class CarController {
                                                 @CookieValue(name = "email", value = "", required = false) String email,
                                                 @CookieValue(name = "token", value = "", required = false) String token,
                                                 HttpServletResponse response) {
-        if (StringUtils.equals(token, redisUtil.getString("email:" + email))) {
+        if (userLoginService.hasLogin(email, token)) {
             carService.history(page, email);
             return ResultBean.getSuccess("查询成功！", page);
         } else {
